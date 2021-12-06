@@ -24,7 +24,7 @@ namespace DatabaseFirstLINQ
             //  ProblemSeven();
             //  ProblemEight();
             //  ProblemNine();
-              ProblemTen();
+            //  ProblemTen();
             //            //ProblemEleven();
             //            //ProblemTwelve();
             //            //ProblemThirteen();
@@ -171,21 +171,24 @@ namespace DatabaseFirstLINQ
 
                  }*/
 
-        private void ProblemTen()
-        {
-            // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
-            // Then print the user's email as well as the product's name, price, and quantity to the console.
-            var users = _context.ShoppingCarts;
-            var userEmployees = users.Include(r => r.User.UserRoles).Include(p => p.Product).join;
-            if(userEmployees.)
-            foreach (var user in userEmployees)
-            {
-                if (user.UserId == 3 ) ;
-                    Console.WriteLine($"Email :{user.User.Email} \n Product :{user.Product.Name}\n Price : {user.Product.Price}\n Amount: {user.Quantity}");
-                
-            }
-            
-        }
+        /*        private void ProblemTen()
+                {
+                    // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
+                    // Then print the user's email as well as the product's name, price, and quantity to the console.
+
+
+                    var employeeUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Employee");
+                    var userProducts = _context.ShoppingCarts.Include(sc => sc.Product).Include(sc => sc.User);
+                    var employeeProducts = employeeUsers.Join(userProducts, employee => employee.UserId, cart => cart.UserId, (employee, cart) => new
+                    { Email = employee.User.Email, Products = cart.Product, Quantity = cart.Quantity }).ToList();
+
+
+
+                    foreach (var employee in employeeProducts)
+                    {
+                        Console.WriteLine($"Email: {employee.Email} Name: {employee.Products.Name} Price: {employee.Products.Price} Quantity: {employee.Quantity}");
+                    }
+                }*/
 
 
         //        // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
@@ -204,11 +207,20 @@ namespace DatabaseFirstLINQ
         //            _context.SaveChanges();
         //        }
 
-        //        private void ProblemTwelve()
-        //        {
-        //            // Create a new Product object and add that product to the Products table using LINQ.
+        /*               private void ProblemTwelve()
+                        {
+                            // Create a new Product object and add that product to the Products table using LINQ.
+                Product newProduct = new Product()
+                {
+                    Name = "Rubber Ducky",
+                    Price = 3,
+                    Description = "This adorable rubber ducky has our White Hot safety disc at the bottom that tells you when the water is too hot"
+                };
+                _context.Products.Add(newProduct);
+                            _context.SaveChanges();
 
-        //        }
+
+                       }*/
 
         //        private void ProblemThirteen()
         //        {
@@ -224,11 +236,22 @@ namespace DatabaseFirstLINQ
         //            _context.SaveChanges();
         //        }
 
-        //        private void ProblemFourteen()
-        //        {
-        //            // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
+        /*                private void ProblemFourteen()
+                        {
+                //            // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
+                var productId = _context.Products.Where(p => p.Name == "Rubber Ducky").Select(p => p.Id).SingleOrDefault();
+                var userId = _context.Users.Where(u => u.Email == "david@gmail.com").Select(u => u.Id).SingleOrDefault();
+                ShoppingCart newShoppingCart = new ShoppingCart()
+                {
+                    UserId = userId,
+                    ProductId = productId,
+                    Quantity = 100
 
-        //        }
+                };
+                _context.ShoppingCarts.Add(newShoppingCart);
+                        _context.SaveChanges();
+
+                   }*/
 
         //        // <><> U Actions (Update) <><>
 
@@ -241,11 +264,14 @@ namespace DatabaseFirstLINQ
         //            _context.SaveChanges();
         //        }
 
-        //        private void ProblemSixteen()
-        //        {
-        //            // Update the price of the product you created to something different using LINQ.
-
-        //        }
+        /*                private void ProblemSixteen()
+                        {
+                //            // Update the price of the product you created to something different using LINQ.
+                        var product = _context.Products.Where(p => p.Price == 3).SingleOrDefault();
+                        product.Price = 2;
+                        _context.Products.Update(product);
+                        _context.SaveChanges();
+                    }*/
 
         //        private void ProblemSeventeen()
         //        {
@@ -265,11 +291,13 @@ namespace DatabaseFirstLINQ
 
         //        // <><> D Actions (Delete) <><>
 
-        //        private void ProblemEighteen()
-        //        {
-        //            // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
-
-        //        }
+        /*                private void ProblemEighteen()
+                        {
+                //            // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
+                var userRole = _context.UserRoles.Where(ur => ur.User.Email == "oda@gmail.com").SingleOrDefault();
+                _context.UserRoles.Remove(userRole);
+                        _context.SaveChanges();
+                    }*/
 
         //        private void ProblemNineteen()
         //        {
@@ -283,44 +311,60 @@ namespace DatabaseFirstLINQ
         //            _context.SaveChanges();
         //        }
 
-        //        private void ProblemTwenty()
-        //        {
-        //            // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
-
-        //        }
+        /*                private void ProblemTwenty()
+                        {
+                //            // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
+                var user = _context.Users.Where(u => u.Email == "oda@gmail.com").SingleOrDefault();
+                _context.Users.Remove(user);
+                        _context.SaveChanges();
+                    }*/
 
         //        // <><><><><><><><> BONUS PROBLEMS <><><><><><><><><>
 
-        //        private void BonusOne()
-        //        {
+/*                private void BonusOne()
+                {
         //            // Prompt the user to enter in an email and password through the console.
         //            // Take the email and password and check if the there is a person that matches that combination.
         //            // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
-        //        }
+        Console.WriteLine("Input an email: ");
+                var emailInput = Console.ReadLine();
+        Console.WriteLine("Input the password: ");
+                var passwordInput = Console.ReadLine();
 
-        //        private void BonusTwo()
-        //        {
-        //            // Write a query that finds the total of every users shopping cart products using LINQ.
-        //            // Display the total of each users shopping cart as well as the total of the toals to the console.
-        //        }
+        var users = _context.Users.Where(e => e.Email == emailInput).Where(p => p.Password == passwordInput).SingleOrDefault();
+                if (users != null)
+                {
+                    Console.WriteLine("Signed In!");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Email or Password.");
+                }
+            }*/
 
-        //        // BIG ONE
-        //        private void BonusThree()
-        //        {
-        //            // 1. Create functionality for a user to sign in via the console
-        //            // 2. If the user succesfully signs in
-        //                // a. Give them a menu where they perform the following actions within the console
-        //                    // View the products in their shopping cart
-        //                    // View all products in the Products table
-        //                    // Add a product to the shopping cart (incrementing quantity if that product is already in their shopping cart)
-        //                    // Remove a product from their shopping cart
-        //            // 3. If the user does not succesfully sing in
-        //                // a. Display "Invalid Email or Password"
-        //                // b. Re-prompt the user for credentials
+    //        private void BonusTwo()
+    //        {
+    //            // Write a query that finds the total of every users shopping cart products using LINQ.
+    //            // Display the total of each users shopping cart as well as the total of the toals to the console.
+    //        }
 
-        //        }
+    //        // BIG ONE
+    //        private void BonusThree()
+    //        {
+    //            // 1. Create functionality for a user to sign in via the console
+    //            // 2. If the user succesfully signs in
+    //                // a. Give them a menu where they perform the following actions within the console
+    //                    // View the products in their shopping cart
+    //                    // View all products in the Products table
+    //                    // Add a product to the shopping cart (incrementing quantity if that product is already in their shopping cart)
+    //                    // Remove a product from their shopping cart
+    //            // 3. If the user does not succesfully sing in
+    //                // a. Display "Invalid Email or Password"
+    //                // b. Re-prompt the user for credentials
 
-        //    }
-        //}
-    }
+    //        }
+
+    //    }
+    //}
+}
 }
